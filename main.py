@@ -1,10 +1,20 @@
-from dataclasses import dataclass, field
+from timerange import TimeRange
+from friend import Friend
+from custom_list import CustomList
 
-@dataclass
-class TimeRange:
-    start_time : str # 10:10
-    end_time : str # 9:10
 
-    start_minutes : int = field(init=False) # 30
-    end_minutes : int = field(init=False) # 50
+def main():
+    available_minutes = CustomList(range(1440))
+    f1 = Friend("Jim")
+    f1.add_busy_range(TimeRange(start_time="8:00", end_time="10:00"))
+    f2 = Friend("Chris")
+    f2.add_busy_range(TimeRange(start_time="8:00", end_time="10:00"))
+    for m in available_minutes[:]:
+        for r in Friend.all_busy_minutes_range:
+            if m in r:
+                available_minutes.remove_if_exist(m)
+    
 
+
+if __name__ == "__main__":
+    main()
