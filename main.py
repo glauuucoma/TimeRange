@@ -1,7 +1,7 @@
 from timerange import TimeRange
 from friend import Friend
 from custom_list import CustomList
-
+import helpers as h
 
 def main():
     available_minutes = CustomList(range(1440))
@@ -13,6 +13,9 @@ def main():
         for r in Friend.all_busy_minutes_range:
             if m in r:
                 available_minutes.remove_if_exist(m)
+
+    for tr in h.prettify_available_minutes(available_minutes):
+        print(f"You can meet in {tr}")
     
 
 
